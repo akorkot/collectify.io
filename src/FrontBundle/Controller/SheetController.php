@@ -4,9 +4,12 @@ namespace FrontBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
 use FrontBundle\Entity\Sheet;
+use FrontBundle\Form\Type\SheetType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use FrontBundle\Form\Handler\SheetHandler;
+
 
 class SheetController extends Controller {
     
@@ -19,10 +22,10 @@ class SheetController extends Controller {
         // Utilisation des flashbag's
         $session->getFlashBag()->add('machin', 'Profile updated');
 
+
         // Insert Sheet in Database
         $em = $this->getDoctrine()->getManager();
 
-        
         $repository = $em->getRepository("FrontBundle:Sheet");
         $sheets = $repository->getByType("Type 1");
 
@@ -42,18 +45,21 @@ class SheetController extends Controller {
     }
 
 
-    public function createAction() {
-        $form = $this->createFormBuilder();
-        $form->add("Name");
-        $form->add("Type");
-        $form->add("Duration");
-        $form->add("Released", "date");
-        $form->add("Submit", "submit");
-        $renderForm = $form->getForm();
+    public function createAction(Request $request) {
 
-        $params = array("renderForm" => $renderForm->createView());
+        $sheetForm = $this->createForm(new SheetType(), new Sheet());
+        $sheetFormHandler = new SheetHandler($sheetForm, $request);
 
-        return $this->render('FrontBundle:Sheet:create.html.twig', $params);
+        if ($sheetFormHandler->process()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($sheetFormHandler->getForm()->getData());
+            $em->flush();
+        }
+
+        return $this->render('FrontBundle:Sheet:create.html.twig', array(
+                "renderForm" => $sheetForm->createView()
+            )
+        );
     }
 
 }
