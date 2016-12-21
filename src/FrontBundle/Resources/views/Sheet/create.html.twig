@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Collectify  - Create{% endblock %}
+
+{% block body %}
+    <h1>Create Sheet</h1>
+    {{ form(renderForm) }}
+{% endblock %}
+
+{% block footer %}
+    {% include "FrontBundle:Includes:Default/footer.html.twig" %}
+{% endblock %}

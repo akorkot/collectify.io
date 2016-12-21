@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Collectify Sheet Show{% endblock %}
+
+{% block body %}
+    <h1>Sheet {{ id }}</h1>
+    {% include "FrontBundle:Includes:Sheets/informations.html.twig" %}
+{% endblock %}
+
+{% block footer %}
+    {% include "FrontBundle:Includes:Default/footer.html.twig" %}
+{% endblock %}

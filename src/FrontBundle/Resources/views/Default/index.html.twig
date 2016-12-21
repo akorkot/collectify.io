@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Collectify Index{% endblock %}
+{% block pageTitle %}{{ "Collectify"|upper }}{% endblock %}
+
+{% block body %} 
+    {{ "now"|date("d-m-Y") }}
+    {% include "FrontBundle:Includes:Default/body.html.twig" %} 
+{% endblock %}
+
+{% block footer %}  
+    {% include "FrontBundle:Includes:Default/footer.html.twig" %}
+{% endblock %}
