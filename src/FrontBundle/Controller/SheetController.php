@@ -50,11 +50,11 @@ class SheetController extends Controller {
         $sheetForm = $this->createForm(new SheetType(), new Sheet());
         $sheetFormHandler = new SheetHandler($sheetForm, $request);
 
-        if ($sheetFormHandler->process()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($sheetFormHandler->getForm()->getData());
-            $em->flush();
-        }
+        //if ($sheetFormHandler->process()){
+        //    $em = $this->getDoctrine()->getManager();
+        //  $em->persist($sheetFormHandler->getForm()->getData());
+        //  $em->flush();
+        //}
 
         return $this->render('FrontBundle:Sheet:create.html.twig', array(
                 "renderForm" => $sheetForm->createView()
